@@ -20,26 +20,32 @@ import org.json.*;
 
 
 public class NewsServlet extends HttpServlet {
-    File file = new File("D:/Tomcat/rss.builder.feedrss.builder.xml");
+//    File file = new File("D:/Tomcat/rss.builder.feedrss.builder.xml");
 
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         resp.setContentType("text/html");
 
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-
-
-        try {
-            SAXParser parser = factory.newSAXParser();
-            XMLParser xmlParser = new XMLParser();
-            parser.parse(file, xmlParser);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        News news = new News();
+        FillNews.addContent(news);
+        JSONObject jsonObject = new JSONObject();
+        Fill_JSON.addJSON(jsonObject,news);
 
         PrintWriter out = resp.getWriter();
         JSONContainer.displayJsonObjects(out);
+
+//        SAXParserFactory factory = SAXParserFactory.newInstance();
+//
+//
+//        try {
+//            SAXParser parser = factory.newSAXParser();
+//            XMLParser xmlParser = new XMLParser();
+//            parser.parse(file, xmlParser);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     @Override
