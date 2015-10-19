@@ -3,8 +3,8 @@ package com.json_news_item;
 import org.json.JSONObject;
 import com.news_item.News;
 
-public class Fill_JSON {
-    public static void addJSON(JSONObject rec, News nrec) {
+public class JsonConverter {
+    public static void addJsonInContainer(JSONObject rec, News nrec) {
 
         rec.put("ID", nrec.getId());
         rec.put("Title", nrec.getTitle());
@@ -12,6 +12,5 @@ public class Fill_JSON {
         rec.put("Author", nrec.getAuthor());
         rec.put("PubDate", nrec.getPubdate());
         JSONContainer.setJsonNewsList(rec);
-
     }
 }

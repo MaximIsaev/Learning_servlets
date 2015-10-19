@@ -1,6 +1,6 @@
 package com.main_servlet;
 
-import com.json_news_item.Fill_JSON;
+import com.json_news_item.JsonConverter;
 import com.json_news_item.JSONContainer;
 import com.news_item.FillNews;
 import com.news_item.News;
@@ -9,9 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -28,12 +25,16 @@ public class NewsServlet extends HttpServlet {
         resp.setContentType("text/html");
 
         News news = new News();
-        FillNews.addContent(news);
         JSONObject jsonObject = new JSONObject();
-        Fill_JSON.addJSON(jsonObject,news);
+
+        XMLParser.parser(news);
+
+        JsonConverter.addJsonInContainer(jsonObject, news);
 
         PrintWriter out = resp.getWriter();
         JSONContainer.displayJsonObjects(out);
+
+        //FillNews.addContent(news);
 
 //        SAXParserFactory factory = SAXParserFactory.newInstance();
 //

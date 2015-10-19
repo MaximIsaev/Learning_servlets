@@ -7,10 +7,11 @@ public class News {
     private static String description;
     private static String author;
     private static String pubdate;
+    private static String link;
     private static int id;
 
 
-    public void setTitle(String title) {
+    public static void setTitle(String title) {
         News.title = title;
     }
 
@@ -28,6 +29,10 @@ public class News {
 
     public void setId(int id) {
         News.id = id;
+    }
+
+    public static void setLink(String link) {
+        News.link = link;
     }
 
     public String getTitle() {
