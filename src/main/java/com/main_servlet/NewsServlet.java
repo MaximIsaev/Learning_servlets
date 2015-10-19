@@ -22,26 +22,13 @@ public class NewsServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("text/html; charset=utf-8");
 
 
         XMLParser.parser();
 
         PrintWriter out = resp.getWriter();
         JSONContainer.displayJsonObjects(out);
-
-        //FillNews.addContent(news);
-
-//        SAXParserFactory factory = SAXParserFactory.newInstance();
-//
-//
-//        try {
-//            SAXParser parser = factory.newSAXParser();
-//            XMLParser xmlParser = new XMLParser();
-//            parser.parse(file, xmlParser);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
     }
 
