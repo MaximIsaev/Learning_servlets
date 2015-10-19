@@ -1,13 +1,8 @@
 package com.xml_parser;
 
-import com.news_item.News;
-import com.news_item.NewsContainer;
-import com.json_news_item.JsonConverter;
-import com.news_item.News;
-import com.news_item.NewsContainer;
+import com.json_news_item.JSONContainer;
 import org.json.JSONObject;
 import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.*;
 
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
@@ -15,12 +10,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XMLParser extends DefaultHandler {
 
-    public static void parser(News news) {
+
+
+    public static void parser() {
         try {
             // получаем xml парсер с настройками по умолчанию
             DocumentBuilder xml = DocumentBuilderFactory.
@@ -30,7 +26,7 @@ public class XMLParser extends DefaultHandler {
             Document doc = xml.parse(new File("D:/Tomcat/rss.builder.feedrss.builder.xml"));
             // корневой элемент документа
             Element rootel = doc.getDocumentElement();
-            
+
 
             // имя корневого элемента
             System.out.println(rootel.getNodeName());
@@ -62,9 +58,13 @@ public class XMLParser extends DefaultHandler {
 
     public static void displayItemChild(NodeList list) {
 
+        //News news = new News();
+        JSONObject jsonObject = new JSONObject();
         for (int i = 0; i < list.getLength(); i++) {
+            jsonObject.put(list.item(i).getNodeName(),list.item(i).getTextContent());
             System.out.println(" " + list.item(i).getNodeName() + ":" + list.item(i).getTextContent());
         }
+        JSONContainer.addNewJsonRecord(jsonObject);
     }
 }
 

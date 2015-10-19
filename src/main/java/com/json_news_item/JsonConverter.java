@@ -11,6 +11,6 @@ public class JsonConverter {
         rec.put("Description", nrec.getDescription());
         rec.put("Author", nrec.getAuthor());
         rec.put("PubDate", nrec.getPubdate());
-        JSONContainer.setJsonNewsList(rec);
+        JSONContainer.addNewJsonRecord(rec);
     }
 }

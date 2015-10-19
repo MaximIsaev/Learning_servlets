@@ -24,12 +24,8 @@ public class NewsServlet extends HttpServlet {
             throws ServletException, IOException {
         resp.setContentType("text/html");
 
-        News news = new News();
-        JSONObject jsonObject = new JSONObject();
 
-        XMLParser.parser(news);
-
-        JsonConverter.addJsonInContainer(jsonObject, news);
+        XMLParser.parser();
 
         PrintWriter out = resp.getWriter();
         JSONContainer.displayJsonObjects(out);

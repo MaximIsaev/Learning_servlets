@@ -2,7 +2,7 @@ package com.news_item;
 
 public class News {
 
-
+    private static String guid;
     private static String title;
     private static String description;
     private static String author;
@@ -10,24 +10,27 @@ public class News {
     private static String link;
     private static int id;
 
+    public static void setGuid(String guid) {
+        News.guid = guid;
+    }
 
     public static void setTitle(String title) {
         News.title = title;
     }
 
-    public void setDescription(String description) {
+    public static void setDescription(String description) {
         News.description = description;
     }
 
-    public void setAuthor(String author) {
+    public static void setAuthor(String author) {
         News.author = author;
     }
 
-    public void setPubdatee(String pubdate) {
+    public static void setPubdatee(String pubdate) {
         News.pubdate = pubdate;
     }
 
-    public void setId(int id) {
+    public static void setId(int id) {
         News.id = id;
     }
 
@@ -35,7 +38,7 @@ public class News {
         News.link = link;
     }
 
-    public String getTitle() {
+    public static String getTitle() {
         return title;
     }
 
