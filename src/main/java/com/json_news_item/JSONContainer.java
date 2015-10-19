@@ -19,7 +19,7 @@ public class JSONContainer {
 
     public static void displayJsonObjects(PrintWriter out) {
         for (int i = 0; i < jsonNewsList.size(); i++) {
-            out.print(jsonNewsList.get(i));
+            out.println(jsonNewsList.get(i));
         }
         out.close();
 

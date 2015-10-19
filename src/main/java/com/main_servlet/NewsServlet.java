@@ -5,6 +5,7 @@ import com.json_news_item.JSONContainer;
 import com.news_item.FillNews;
 import com.news_item.News;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +19,12 @@ import org.json.*;
 
 public class NewsServlet extends HttpServlet {
 //    File file = new File("D:/Tomcat/rss.builder.feedrss.builder.xml");
+    ServletConfig conf;
 
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("text/html; charset=utf-8");
 
 
         XMLParser.parser();
@@ -30,23 +32,24 @@ public class NewsServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONContainer.displayJsonObjects(out);
 
-        //FillNews.addContent(news);
-
-//        SAXParserFactory factory = SAXParserFactory.newInstance();
-//
-//
-//        try {
-//            SAXParser parser = factory.newSAXParser();
-//            XMLParser xmlParser = new XMLParser();
-//            parser.parse(file, xmlParser);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
     }
 
     @Override
+    public void init(ServletConfig config) throws ServletException {
+        conf = config;
+        System.out.println("Init challenged");
+    }
+
+    @Override
+    public void destroy(){
+        System.out.println("Init destroyed");
+    }
+
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        init(conf);
         processRequest(req, resp);
+
     }
 }
