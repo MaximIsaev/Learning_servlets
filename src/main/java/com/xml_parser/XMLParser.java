@@ -1,75 +1,65 @@
 package com.xml_parser;
 
-import com.json_news_item.Fill_JSON;
 import com.json_news_item.JSONContainer;
-import com.news_item.News;
-import com.news_item.NewsContainer;
 import org.json.JSONObject;
-import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.*;
 
-public class XMLParser extends DefaultHandler {
+import java.io.File;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
-    private NewsContainer items;
-    private News item;
-    private boolean inItem = false;
-    JSONObject newsJson;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
-
-    private StringBuilder content;
-
-    public XMLParser() {
-        content = new StringBuilder();
-    }
+public class XMLParser {
 
 
-    @Override
-    public void startDocument() throws SAXException {
+    public static void parser() {
+        try {
 
-    }
+            DocumentBuilder xml = DocumentBuilderFactory.
+                    newInstance().newDocumentBuilder();
 
-    @Override
-    public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
 
-        content = new StringBuilder();
-        if (localName.equalsIgnoreCase("item")) {
-            inItem = true;
-            item = new News();
-            newsJson = new JSONObject();
+            Document doc = xml.parse(new File("D:/Tomcat/rss.builder.feedrss.builder.xml"));
+
+            Element rootel = doc.getDocumentElement();
+
+            System.out.println(rootel.getNodeName());
+
+            System.out.println("Child elements: ");
+            NodeList lst = rootel.getChildNodes();
+            NodeList itemList;
+
+
+            for (int i = 0; i < lst.getLength(); i++) {
+                System.out.println(lst.item(i).getNodeName());
+                NodeList channelNodes = lst.item(i).getChildNodes();
+                System.out.println("Channels child elements: " + channelNodes.getLength());
+                for (int j = 2; j < channelNodes.getLength(); j++) {
+                    System.out.println(channelNodes.item(j).getNodeName() + (j - 1));
+                    itemList = channelNodes.item(j).getChildNodes();
+                    displayItemChild(itemList);
+                }
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+
     }
 
-    @Override
-    public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
-        if (localName.equalsIgnoreCase("title")) {
-            if (inItem) {
-                item.setTitle(content.toString());
-            }
-        } else if (localName.equalsIgnoreCase("description")) {
-            if (inItem) {
-                item.setDescription(content.toString());
-            }
-        } else if (localName.equalsIgnoreCase("author")) {
-            if (inItem) {
-                item.setAuthor(content.toString());
-            }
-        } else if (localName.equalsIgnoreCase("pubdate")) {
-            if (inItem) {
-                item.setPubdatee(content.toString());
-            }
-        } else if (localName.equalsIgnoreCase("item")) {
-            inItem = false;
-            NewsContainer.setNewsList(item);
-            Fill_JSON.addJSON(newsJson, item);
+    public static void displayItemChild(NodeList list) {
+
+        JSONObject jsonObject = new JSONObject();
+        for (int i = 0; i < list.getLength(); i++) {
+            jsonObject.put(list.item(i).getNodeName(), list.item(i).getTextContent());
+            System.out.println(" " + list.item(i).getNodeName() + ":" + list.item(i).getTextContent());
         }
+        JSONContainer.addNewJsonRecord(jsonObject);
     }
-
-    @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
-        content.append(ch, start, length);
-    }
-
-    @Override
-    public void endDocument(){}
 }
+
 
