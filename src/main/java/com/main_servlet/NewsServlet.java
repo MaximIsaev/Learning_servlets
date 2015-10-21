@@ -18,7 +18,6 @@ import org.json.*;
 
 
 public class NewsServlet extends HttpServlet {
-//    File file = new File("D:/Tomcat/rss.builder.feedrss.builder.xml");
     ServletConfig conf;
 
 
