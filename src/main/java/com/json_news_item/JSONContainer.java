@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class JSONContainer {
     private static ArrayList<JSONObject> jsonNewsList = new ArrayList<JSONObject>();
 
-    public static void addNewJsonRecord(JSONObject rec) {
+    public static void setJsonNewsList(JSONObject rec) {
         jsonNewsList.add(rec);
     }
 
@@ -19,7 +19,7 @@ public class JSONContainer {
 
     public static void displayJsonObjects(PrintWriter out) {
         for (int i = 0; i < jsonNewsList.size(); i++) {
-            out.println(jsonNewsList.get(i));
+            out.print(jsonNewsList.get(i));
         }
         out.close();
 
